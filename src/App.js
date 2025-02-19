@@ -4,9 +4,11 @@ import "./style.scss";
 const App = () => {
   const canvasRef = useRef(null);
   const [tiles, setTiles] = useState([
-    { id: 1, x: 50, y: 50, label: "Rodzic 1" },
+    { id: 1, x: 50, y: 50, label: "Rodzic 1", url: "https://onet.pl" },
     { id: 2, x: 200, y: 50, label: "Rodzic 2" },
-    { id: 3, x: 125, y: 150, label: "Dziecko" }
+    { id: 3, x: 125, y: 150, label: "Dziecko" },
+    { id: 4, x: 125, y: 250, label: "Dziecko2" }
+    
   ]);
   const [draggingTile, setDraggingTile] = useState(null);
 
@@ -17,13 +19,14 @@ const App = () => {
   }, [tiles]);
 
   const draw = (ctx) => {
-    ctx.clearRect(0, 0, 400, 300);
+    ctx.clearRect(0, 0, 1200, 800);
     tiles.forEach(tile => {
       ctx.fillStyle = "lightblue";
-      ctx.fillRect(tile.x, tile.y, 80, 40);
-      ctx.fillStyle = "black";
+      ctx.border = "1px solid";
+      ctx.fillRect(tile.x, tile.y, 120  , 60);
+      ctx.fillStyle = "red";
       ctx.font = "14px Arial";
-      ctx.fillText(tile.label, tile.x + 10, tile.y + 25);
+      ctx.fillText(tile.label, tile.x+(120/2), tile.y+(60/2));
     });
   };
 
@@ -50,9 +53,9 @@ const App = () => {
     <div className="tree-container">
       <canvas 
         ref={canvasRef} 
-        width={400} 
-        height={300} 
-        style={{ border: "1px solid black" }}
+        width={1200} 
+        height={600} 
+        style={{ border: "3px solid black" }}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
