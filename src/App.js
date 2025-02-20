@@ -23,7 +23,7 @@ const App = () => {
     tiles.forEach(tile => {
       ctx.fillStyle = "lightblue";
       ctx.border = "1px solid";
-      ctx.fillRect(tile.x, tile.y, 120  , 60);
+      ctx.fillRect(tile.x, tile.y, 120, 60);
       ctx.fillStyle = "red";
       ctx.font = "14px Arial";
       ctx.fillText(tile.label, tile.x+(120/2), tile.y+(60/2));
