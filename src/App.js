@@ -8,7 +8,6 @@ const App = () => {
     { id: 2, x: 200, y: 50, label: "Rodzic 2" },
     { id: 3, x: 125, y: 150, label: "Dziecko" },
     { id: 4, x: 125, y: 250, label: "Dziecko2" }
-    
   ]);
   const [draggingTile, setDraggingTile] = useState(null);
 
@@ -18,21 +17,41 @@ const App = () => {
     draw(ctx);
   }, [tiles]);
 
+  const drawRoundedRect = (ctx, x, y, width, height, radius) => {
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + width - radius, y);
+    ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+    ctx.lineTo(x + width, y + height - radius);
+    ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+    ctx.lineTo(x + radius, y + height);
+    ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+  };
+
   const draw = (ctx) => {
     ctx.clearRect(0, 0, 1200, 800);
     tiles.forEach(tile => {
-      ctx.fillStyle = "lightblue";
-      ctx.border = "1px solid";
-      ctx.fillRect(tile.x, tile.y, 120, 60);
+      ctx.fillStyle = "lightgreen"; // Zmiana koloru kafelków
+      ctx.strokeStyle = "black"; // Kolor obramowania
+      ctx.lineWidth = 2; // Grubość obramowania
+      drawRoundedRect(ctx, tile.x, tile.y, 120, 60, 10); // Zaokrąglone kafelki
+
       ctx.fillStyle = "red";
       ctx.font = "14px Arial";
-      ctx.fillText(tile.label, tile.x+(120/2), tile.y+(60/2));
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(tile.label, tile.x + 60, tile.y + 30);
     });
   };
 
   const handleMouseDown = (e) => {
     const { offsetX, offsetY } = e.nativeEvent;
-    const tile = tiles.find(t => offsetX >= t.x && offsetX <= t.x + 80 && offsetY >= t.y && offsetY <= t.y + 40);
+    const tile = tiles.find(t => offsetX >= t.x && offsetX <= t.x + 120 && offsetY >= t.y && offsetY <= t.y + 60);
     if (tile) {
       setDraggingTile(tile.id);
     }
@@ -41,7 +60,7 @@ const App = () => {
   const handleMouseMove = (e) => {
     if (draggingTile !== null) {
       const { offsetX, offsetY } = e.nativeEvent;
-      setTiles(tiles.map(tile => tile.id === draggingTile ? { ...tile, x: offsetX - 40, y: offsetY - 20 } : tile));
+      setTiles(tiles.map(tile => tile.id === draggingTile ? { ...tile, x: offsetX - 60, y: offsetY - 30 } : tile));
     }
   };
 
