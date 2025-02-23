@@ -4,10 +4,10 @@ import "./style.scss";
 const App = () => {
   const canvasRef = useRef(null);
   const [tiles, setTiles] = useState([
-    { id: 1, x: 50, y: 50, label: "Rodzic 1", url: "https://onet.pl" },
-    { id: 2, x: 200, y: 50, label: "Rodzic 2" },
-    { id: 3, x: 125, y: 150, label: "Dziecko" },
-    { id: 4, x: 125, y: 250, label: "Dziecko2" }
+    { id: 1, x: 50, y: 50, label: "Ojciec",name:"Adam Nowak", url: "https://onet.pl" },
+    { id: 2, x: 200, y: 50, label: "Matka",name:"Joanna Nowak", url: "https://wnet.pl"  },
+    { id: 3, x: 50, y: 300, label: "Syn",name:"Olo Nowak", url: "https://bbc.com"  },
+    { id: 4, x: 200, y: 300, label: "Córka",name:"Kata Nowak", url: "https://wp.pl"  }
   ]);
   const [draggingTile, setDraggingTile] = useState(null);
 
@@ -39,13 +39,13 @@ const App = () => {
       ctx.fillStyle = "lightgreen"; // Zmiana koloru kafelków
       ctx.strokeStyle = "black"; // Kolor obramowania
       ctx.lineWidth = 2; // Grubość obramowania
-      drawRoundedRect(ctx, tile.x, tile.y, 120, 60, 10); // Zaokrąglone kafelki
-
+      drawRoundedRect(ctx, tile.x, tile.y, 120, 180, 10); // Zaokrąglone kafelki
       ctx.fillStyle = "red";
       ctx.font = "14px Arial";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.fillText(tile.label, tile.x + 60, tile.y + 30);
+      ctx.fillText(tile.name, tile.x + 60, tile.y + 40);
     });
   };
 
