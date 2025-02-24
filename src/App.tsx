@@ -1,0 +1,153 @@
+import React, { useEffect, useRef, useState } from "react";
+import manImage from './assets/image/man.jpg';
+
+interface Tile {
+  id: number;
+  x: number;
+  y: number;
+  label: string;
+  name: string;
+  born: string;
+  death: string;
+  url: string;
+}
+
+interface Images {
+  [key: number]: HTMLImageElement;
+}
+
+const App: React.FC = () => {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const [tiles, setTiles] = useState<Tile[]>([
+    { id: 1, x: 50, y: 50, label: "Ojciec", name: "Adam Nowak",born:"^ 12.01.1958", death:"+ 12.03.2025", url: manImage },
+    { id: 2, x: 200, y: 50, label: "Matka", name: "Joanna Nowak",born:"", death:"",  url: manImage },
+    { id: 3, x: 50, y: 300, label: "Syn", name: "Olo Nowak",born:"", death:"",  url: manImage },
+    { id: 4, x: 200, y: 300, label: "Córka", name: "Kata Nowak",born:"", death:"",  url: manImage }
+  ]);
+  const [draggingTile, setDraggingTile] = useState<number | null>(null);
+  const [images, setImages] = useState<Images>({});
+
+  useEffect(() => {
+    tiles.forEach(tile => {
+      const img = new Image();
+      img.src = tile.url;
+      img.onload = () => {
+        setImages(prev => ({ ...prev, [tile.id]: img }));
+      };
+    });
+  }, []);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext("2d");
+    if (ctx && canvas) {
+      draw(ctx);
+    }
+  }, [tiles, images]);
+
+  const drawCircularImage = (ctx: CanvasRenderingContext2D, img: HTMLImageElement, x: number, y: number, radius: number) => {
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(x + radius, y + radius, radius, 0, Math.PI * 2, true);
+    ctx.closePath();
+    ctx.clip();
+    
+    ctx.drawImage(img, x, y, radius * 2, radius * 2);
+    
+    ctx.beginPath();
+    ctx.arc(x + radius, y + radius, radius, 0, Math.PI * 2, true);
+    ctx.clip();
+    ctx.closePath();
+    ctx.restore();
+
+    ctx.beginPath();
+    ctx.arc(x + radius, y + radius, radius, 0, Math.PI * 2, true);
+    ctx.strokeStyle = 'black';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  };
+
+  const drawRoundedRect = (ctx: CanvasRenderingContext2D, x: number, y: number, width: number, height: number, radius: number) => {
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + width - radius, y);
+    ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+    ctx.lineTo(x + width, y + height - radius);
+    ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+    ctx.lineTo(x + radius, y + height);
+    ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+  };
+
+  const draw = (ctx: CanvasRenderingContext2D) => {
+    ctx.clearRect(0, 0, 1200, 800);
+    
+    tiles.forEach(tile => {
+      ctx.fillStyle = "lightgreen";
+      ctx.strokeStyle = "black";
+      ctx.lineWidth = 2;
+      drawRoundedRect(ctx, tile.x, tile.y + 60, 120, 120, 10);
+
+      if (images[tile.id]) {
+        drawCircularImage(ctx, images[tile.id], tile.x + 30, tile.y, 30);
+      }
+
+      ctx.fillStyle = "black";
+      ctx.font = "14px Arial";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(tile.label, tile.x + 60, tile.y + 100);
+      ctx.fillText(tile.name, tile.x + 60, tile.y + 120);
+      ctx.fillText(tile.born, tile.x + 60, tile.y + 140);
+      ctx.fillText(tile.death, tile.x + 60, tile.y + 160);
+    });
+  };
+
+  const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    const { offsetX, offsetY } = e.nativeEvent;
+    const tile = tiles.find(t => 
+      offsetX >= t.x && 
+      offsetX <= t.x + 120 && 
+      offsetY >= t.y && 
+      offsetY <= t.y + 180
+    );
+    if (tile) {
+      setDraggingTile(tile.id);
+    }
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    if (draggingTile !== null) {
+      const { offsetX, offsetY } = e.nativeEvent;
+      setTiles(tiles.map(tile => 
+        tile.id === draggingTile 
+          ? { ...tile, x: offsetX - 60, y: offsetY - 90 } 
+          : tile
+      ));
+    }
+  };
+
+  const handleMouseUp = () => {
+    setDraggingTile(null);
+  };
+
+  return (
+    <div className="tree-container">
+      <canvas 
+        ref={canvasRef} 
+        width={1200} 
+        height={600} 
+        style={{ border: "3px solid black" }}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+      />
+    </div>
+  );
+};
+
+export default App;
