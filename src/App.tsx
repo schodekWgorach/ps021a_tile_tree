@@ -19,10 +19,10 @@ interface Images {
 const App: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [tiles, setTiles] = useState<Tile[]>([
-    { id: 1, x: 50, y: 50, label: "Ojciec", name: "Adam Nowak",born:"^ 12.01.1958", death:"+ 12.03.2025", url: manImage },
-    { id: 2, x: 200, y: 50, label: "Matka", name: "Joanna Nowak",born:"", death:"",  url: manImage },
-    { id: 3, x: 50, y: 300, label: "Syn", name: "Olo Nowak",born:"", death:"",  url: manImage },
-    { id: 4, x: 200, y: 300, label: "Córka", name: "Kata Nowak",born:"", death:"",  url: manImage }
+    { id: 1, x: 50, y: 50, label: "", name: "Adam Nowak",born:"* 12.01.1958", death:"+ 12.03.2025", url: manImage },
+    { id: 2, x: 200, y: 50, label: "", name: "Joanna Nowak",born:"* 12.01.1958", death:"+ 12.03.2025",  url: manImage },
+    { id: 3, x: 50, y: 300, label: "", name: "Olo Nowak",born:"* 12.01.1958", death:"+ 12.03.2025",  url: manImage },
+    { id: 4, x: 200, y: 300, label: "", name: "Kata Nowak",born:"* 12.01.1958", death:"+ 12.03.2025",  url: manImage }
   ]);
   const [draggingTile, setDraggingTile] = useState<number | null>(null);
   const [images, setImages] = useState<Images>({});
@@ -93,17 +93,17 @@ const App: React.FC = () => {
       drawRoundedRect(ctx, tile.x, tile.y + 60, 120, 120, 10);
 
       if (images[tile.id]) {
-        drawCircularImage(ctx, images[tile.id], tile.x + 30, tile.y, 30);
+        drawCircularImage(ctx, images[tile.id], tile.x + 30, tile.y + 30 , 30);
       }
 
       ctx.fillStyle = "black";
       ctx.font = "14px Arial";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      ctx.fillText(tile.label, tile.x + 60, tile.y + 100);
-      ctx.fillText(tile.name, tile.x + 60, tile.y + 120);
-      ctx.fillText(tile.born, tile.x + 60, tile.y + 140);
-      ctx.fillText(tile.death, tile.x + 60, tile.y + 160);
+      ctx.fillText(tile.label, tile.x + 60, tile.y );
+      ctx.fillText(tile.name, tile.x + 60, tile.y + 100);
+      ctx.fillText(tile.born, tile.x + 60, tile.y + 120);
+      ctx.fillText(tile.death, tile.x + 60, tile.y + 140);
     });
   };
 
