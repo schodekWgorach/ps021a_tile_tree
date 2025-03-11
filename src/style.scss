@@ -1,9 +1,29 @@
+// Definicja pastelowych kolorów
+$pastel-orange: #FFDDC1;
+$pastel-green: #B0E57C;
+$pastel-blue: #A7C7E7;
+$pastel-blue-dark: #86A8CF;
+$border-color: #555;
+
 .tree-container {
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: 10px;
-  border: #0056b3 solid 1px;
+  border: $pastel-blue-dark solid 1px;
+}
+
+.canvas-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; // Wysokość kontenera na pełną wysokość widoku
+  background-color: $pastel-orange; // Pastelowy pomarańczowy
+}
+
+canvas {
+  background-color: $pastel-orange; // Pastelowy pomarańczowy
+  border: 2px solid $border-color; // Delikatniejszy border
 }
 
 .tree {
@@ -30,9 +50,9 @@
 }
 
 .tile {
-  background-color: #90ee90; // Nowy kolor kafelków
-  border: 2px solid black; // Obramowanie kafelków
-  border-radius: 10px; // Zaokrąglenie rogów
+  background-color: $pastel-green; // Pastelowy zielony
+  border: 2px solid $border-color;
+  border-radius: 10px;
   padding: 20px;
   text-align: center;
   font-weight: bold;
@@ -41,16 +61,16 @@
 }
 
 .move-button {
-  background-color: #007bff;
+  background-color: $pastel-blue; // Pastelowy niebieski
   color: white;
-  border: 2px solid black;
+  border: 2px solid $border-color;
   padding: 10px;
   font-size: 20px;
-  cursor: pointer;
+  cursor: Hand;
   border-radius: 5px;
   margin: 0 10px;
-}
 
-.move-button:hover {
-  background-color: #0056b3;
+  &:hover {
+    background-color: $pastel-blue-dark; // Ciemniejszy pastelowy niebieski
+  }
 }

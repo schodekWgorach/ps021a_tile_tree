@@ -84,28 +84,33 @@ const App: React.FC = () => {
   };
 
   const draw = (ctx: CanvasRenderingContext2D) => {
-    ctx.clearRect(0, 0, 1200, 800);
-    
+    const canvas = ctx.canvas;
+  
+    // Ustawienie koloru tła canvas
+    ctx.fillStyle = "#5b8e7d"; 
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  
     tiles.forEach(tile => {
-      ctx.fillStyle = "lightgreen";
+      ctx.fillStyle = "#b5e48c";
       ctx.strokeStyle = "black";
       ctx.lineWidth = 2;
       drawRoundedRect(ctx, tile.x, tile.y + 60, 120, 120, 10);
-
+  
       if (images[tile.id]) {
-        drawCircularImage(ctx, images[tile.id], tile.x + 30, tile.y + 30 , 30);
+        drawCircularImage(ctx, images[tile.id], tile.x + 30, tile.y + 30, 30);
       }
-
+  
       ctx.fillStyle = "black";
       ctx.font = "14px Arial";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      ctx.fillText(tile.label, tile.x + 60, tile.y );
+      ctx.fillText(tile.label, tile.x + 60, tile.y);
       ctx.fillText(tile.name, tile.x + 60, tile.y + 100);
       ctx.fillText(tile.born, tile.x + 60, tile.y + 120);
       ctx.fillText(tile.death, tile.x + 60, tile.y + 140);
     });
   };
+  
 
   const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const { offsetX, offsetY } = e.nativeEvent;
@@ -141,7 +146,7 @@ const App: React.FC = () => {
         ref={canvasRef} 
         width={1200} 
         height={600} 
-        style={{ border: "3px solid black" }}
+        style={{ border: "3px dotted gray" }}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
