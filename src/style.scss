@@ -5,12 +5,23 @@ $pastel-blue: #A7C7E7;
 $pastel-blue-dark: #86A8CF;
 $border-color: #555;
 
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+canvas {  
+  border: 2px solid $border-color; // Delikatniejszy border
+  display: block; // Upewnij się, że canvas jest blokowy
+  margin: auto; // Wyśrodkuj canvas
+}
+
 .tree-container {
   display: flex;
-  align-items: center;
   justify-content: center;
-  margin-top: 10px;
-  border: $pastel-blue-dark solid 1px;
+  align-items: center;
+  height: 100vh; // Wysokość kontenera na pełną wysokość widoku
+  background-color: $pastel-green; // Pastelowy pomarańczowy
 }
 
 .canvas-container {
@@ -18,12 +29,6 @@ $border-color: #555;
   justify-content: center;
   align-items: center;
   height: 100vh; // Wysokość kontenera na pełną wysokość widoku
-  background-color: $pastel-orange; // Pastelowy pomarańczowy
-}
-
-canvas {
-  background-color: $pastel-orange; // Pastelowy pomarańczowy
-  border: 2px solid $border-color; // Delikatniejszy border
 }
 
 .tree {
@@ -66,7 +71,7 @@ canvas {
   border: 2px solid $border-color;
   padding: 10px;
   font-size: 20px;
-  cursor: Hand;
+  cursor: pointer;
   border-radius: 5px;
   margin: 0 10px;
 
