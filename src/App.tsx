@@ -144,9 +144,9 @@ const App: React.FC = () => {
     <div className="tree-container">
       <canvas 
         ref={canvasRef} 
-        width={1200} 
-        height={600} 
-        style={{ border: "3px dotted gray" }}
+        width={1600} 
+        height={800} 
+        style={{ border: "5px dotted gray" }}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
