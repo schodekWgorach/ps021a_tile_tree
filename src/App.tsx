@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import './style.scss'; // Import stylów
 import manImage from './assets/image/man.jpg';
 
 interface Tile {
@@ -19,10 +20,10 @@ interface Images {
 const App: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [tiles, setTiles] = useState<Tile[]>([
-    { id: 1, x: 50, y: 50, label: "", name: "Adam Nowak",born:"* 12.01.1958", death:"+ 12.03.2025", url: manImage },
-    { id: 2, x: 200, y: 50, label: "", name: "Joanna Nowak",born:"* 12.01.1958", death:"+ 12.03.2025",  url: manImage },
-    { id: 3, x: 50, y: 300, label: "", name: "Olo Nowak",born:"* 12.01.1958", death:"+ 12.03.2025",  url: manImage },
-    { id: 4, x: 200, y: 300, label: "", name: "Kata Nowak",born:"* 12.01.1958", death:"+ 12.03.2025",  url: manImage }
+    { id: 1, x: 50, y: 50, label: "", name: "Adam Nowak", born: "* 12.01.1958", death: "+ 12.03.2025", url: manImage },
+    { id: 2, x: 200, y: 50, label: "", name: "Joanna Nowak", born: "* 12.01.1958", death: "+ 12.03.2025", url: manImage },
+    { id: 2, x: 50, y: 200, label: "", name: "Joanna Nowak", born: "* 12.01.1958", death: "+ 12.03.2025", url: manImage },
+    { id: 2, x: 200, y: 200, label: "", name: "Joanna Nowak", born: "* 12.01.1958", death: "+ 12.03.2025", url: manImage }
   ]);
   const [draggingTile, setDraggingTile] = useState<number | null>(null);
   const [images, setImages] = useState<Images>({});
@@ -44,6 +45,20 @@ const App: React.FC = () => {
       draw(ctx);
     }
   }, [tiles, images]);
+
+  const addTile = () => {
+    const newTile: Tile = {
+      id: tiles.length + 1,
+      x: Math.random() * 800, // Losowa pozycja X
+      y: Math.random() * 400, // Losowa pozycja Y
+      label: "",
+      name: "Nowy Tile",
+      born: "* 01.01.2000",
+      death: "+ 01.01.2070",
+      url: manImage
+    };
+    setTiles([...tiles, newTile]);
+  };
 
   const drawCircularImage = (ctx: CanvasRenderingContext2D, img: HTMLImageElement, x: number, y: number, radius: number) => {
     ctx.save();
@@ -141,16 +156,21 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="tree-container">
-      <canvas 
-        ref={canvasRef} 
-        width={1600} 
-        height={800} 
-        style={{ border: "5px dotted gray" }}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-      />
+    <div>
+      <nav className="navbar">
+        <button onClick={addTile}>Dodaj Tile</button>
+      </nav>
+      <div className="tree-container">
+        <canvas 
+          ref={canvasRef} 
+          width={1600} 
+          height={800} 
+          style={{ border: "3px dotted gray" }}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+        />
+      </div>
     </div>
   );
 };

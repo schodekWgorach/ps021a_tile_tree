@@ -11,9 +11,10 @@ body {
 }
 
 canvas {  
-  border: 2px solid $border-color; // Delikatniejszy border
+  border: 2px solid black; // Obramowanie canvas
   display: block; // Upewnij się, że canvas jest blokowy
   margin: auto; // Wyśrodkuj canvas
+  background-color: #ffcc99; // Pastelowy kolor pomarańczowy
 }
 
 .tree-container {
@@ -29,6 +30,7 @@ canvas {
   justify-content: center;
   align-items: center;
   height: 100vh; // Wysokość kontenera na pełną wysokość widoku
+  background-color: #ffcc99; // Pastelowy kolor pomarańczowy
 }
 
 .tree {
