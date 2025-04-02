@@ -28,7 +28,11 @@ Follow these steps to set up and run the project:
    ```bash
    git clone https://github.com/your-username/tile-tree.git
 ```
+
+
 2. **Getting Started with Create React App**
+
+
 ```bash
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
