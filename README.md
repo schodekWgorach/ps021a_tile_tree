@@ -31,11 +31,9 @@ Follow these steps to set up and run the project:
 
 
 2. **Getting Started with Create React App**
-
-
-```bash
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Create React App:
+   ```bash
+   This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 ```
 ## Available Scripts
 
