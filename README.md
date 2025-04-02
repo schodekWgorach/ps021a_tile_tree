@@ -1,3 +1,34 @@
+# Project Overview
+
+Welcome to the **Tile Tree** project! This project allows you to dynamically create and manage a tree structure of tiles, each representing individuals with their names, photos, and additional information.
+
+## Technologies Used
+
+Here are the main technologies used in this project:
+
+- ![React](https://img.shields.io/badge/-React-61DAFB?logo=react&logoColor=black&style=flat-square)
+- ![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?logo=typescript&logoColor=white&style=flat-square)
+- ![SCSS](https://img.shields.io/badge/-SCSS-CC6699?logo=sass&logoColor=white&style=flat-square)
+- ![HTML](https://img.shields.io/badge/-HTML5-E34F26?logo=html5&logoColor=white&style=flat-square)
+- ![Canvas API](https://img.shields.io/badge/-Canvas_API-FF6F00?logo=html5&logoColor=white&style=flat-square)
+
+## Features
+
+- Add and dynamically manage tiles representing individuals.
+- Drag-and-drop functionality for repositioning tiles.
+- Sticky navbar with a button to add new tiles.
+- Fully responsive design with a clean and modern UI.
+
+## Getting Started
+
+Follow these steps to set up and run the project:
+
+1. **Clone the repository**  
+   Clone the project repository to your local machine:
+   ```bash
+   git clone https://github.com/your-username/tile-tree.git
+```
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
