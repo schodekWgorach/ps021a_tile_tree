@@ -81,3 +81,31 @@ canvas {
     background-color: $pastel-blue-dark; // Ciemniejszy pastelowy niebieski
   }
 }
+
+.navbar {
+  position: sticky;
+  top: 0;
+  background-color: #b5e48c; // Tło takie samo jak kafelki
+  padding: 10px;
+  display: flex;
+  justify-content: flex-start; // Przesunięcie przycisku w prawą stronę
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+  button {
+    width: 100px; // Szerokość przycisku
+    height: 50px; // Wysokość przycisku
+    background-color: #5b8e7d; // Kolor przycisku
+    color: white;
+    border: 2px solid black; // Obramowanie przycisku
+    border-radius: 20px; // Zaokrąglenie rogów
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #86a8cf; // Kolor przycisku po najechaniu
+    }
+  }
+}
