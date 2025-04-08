@@ -31,13 +31,18 @@ const App: React.FC = () => {
 
   useEffect(() => {
     tiles.forEach(tile => {
-      const img = new Image();
-      img.src = tile.url;
-      img.onload = () => {
-        setImages(prev => ({ ...prev, [tile.id]: img }));
-      };
+      if (!images[tile.id]) {
+        const img = new Image();
+        img.src = tile.url;
+        img.onload = () => {
+          setImages(prev => ({ ...prev, [tile.id]: img }));
+        };
+        img.onerror = () => {
+          console.error(`Failed to load image for tile ID: ${tile.id}`);
+        };
+      }
     });
-  }, []);
+  }, [tiles, images]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
