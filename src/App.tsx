@@ -58,12 +58,41 @@ const App: React.FC = () => {
       x: Math.random() * 800, // Losowa pozycja X
       y: Math.random() * 400, // Losowa pozycja Y
       label: "",
-      name: "Nowy Tile",
-      born: "* 01.01.2000",
-      death: "+ 01.01.2070",
+      name: "imię i nazwisko",
+      born: "* data urodzenia",
+      death: "+ data śmierci",
       url: ImageMan, // Użyj domyślnego obrazu
     };
     setTiles([...tiles, newTile]);
+  };
+
+  const modifyTile = () => {
+    const tileId = parseInt(prompt("Podaj ID kafelka do modyfikacji:") || "", 10);
+    const tileToModify = tiles.find(tile => tile.id === tileId);
+
+    if (!tileToModify) {
+      alert("Nie znaleziono kafelka o podanym ID.");
+      return;
+    }
+
+    const newName = prompt("Podaj nową nazwę:", tileToModify.name) || tileToModify.name;
+    const newBorn = prompt("Podaj nową datę urodzenia:", tileToModify.born) || tileToModify.born;
+    const newDeath = prompt("Podaj nową datę śmierci:", tileToModify.death) || tileToModify.death;
+    const newImageUrl = prompt("Podaj URL nowego obrazu:", tileToModify.url) || tileToModify.url;
+
+    const updatedTile = { ...tileToModify, name: newName, born: newBorn, death: newDeath, url: newImageUrl };
+
+    setTiles(tiles.map(tile => (tile.id === tileId ? updatedTile : tile)));
+
+    // Aktualizacja obrazu w stanie `images`
+    const img = new Image();
+    img.src = newImageUrl;
+    img.onload = () => {
+      setImages(prev => ({ ...prev, [tileId]: img }));
+    };
+    img.onerror = () => {
+      console.error(`Failed to load new image for tile ID: ${tileId}`);
+    };
   };
 
   const drawCircularImage = (ctx: CanvasRenderingContext2D, img: HTMLImageElement, x: number, y: number, radius: number) => {
@@ -112,15 +141,18 @@ const App: React.FC = () => {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
   
     tiles.forEach(tile => {
+      // Rysowanie kafelka
       ctx.fillStyle = "#b5e48c";
       ctx.strokeStyle = "black";
       ctx.lineWidth = 2;
       drawRoundedRect(ctx, tile.x, tile.y + 60, 120, 120, 10);
   
+      // Rysowanie obrazu na kafelku
       if (images[tile.id]) {
         drawCircularImage(ctx, images[tile.id], tile.x + 30, tile.y + 30, 30);
       }
   
+      // Rysowanie tekstu na kafelku
       ctx.fillStyle = "black";
       ctx.font = "14px Arial";
       ctx.textAlign = "center";
@@ -129,6 +161,12 @@ const App: React.FC = () => {
       ctx.fillText(tile.name, tile.x + 60, tile.y + 100);
       ctx.fillText(tile.born, tile.x + 60, tile.y + 120);
       ctx.fillText(tile.death, tile.x + 60, tile.y + 140);
+  
+      // Rysowanie numeru kafelka trochę z prawej strony
+      ctx.fillStyle = "black"; // Kolor numeru kafelka
+      ctx.font = "bold 16px Arial"; // Styl czcionki
+      ctx.textAlign = "left"; // Wyrównanie tekstu do lewej
+      ctx.fillText(`${tile.id}`, tile.x + 100, tile.y + 80); // Pozycja numeru kafelka
     });
   };
   
@@ -164,7 +202,8 @@ const App: React.FC = () => {
   return (
     <div>
       <nav className="navbar">
-        <button onClick={addTile}>Dodaj Tile</button>
+        <button onClick={addTile}>Dodaj Osobę</button>
+        <button onClick={modifyTile}>Modyfikuj Osobę</button>
       </nav>
       <div className="tree-container">
         <canvas 
