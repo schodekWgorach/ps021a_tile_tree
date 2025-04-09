@@ -84,9 +84,12 @@ canvas {
 
 .navbar {
   display: flex;
-  justify-content: space-between;
+  justify-content: left;
   padding: 10px;
   background-color: #b5e48c;
+  gap: 20px;
+  padding-left: 100px;
+  padding-top: 20px;
 
   button {
     width: 100px;
@@ -94,7 +97,7 @@ canvas {
     background-color: #5b8e7d;
     color: white;
     border: 2px solid black;
-    border-radius: 20px;
+    border-radius: 25px;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
