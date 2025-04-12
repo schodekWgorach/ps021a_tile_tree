@@ -34,11 +34,12 @@ Follow these steps to set up and run the project:
 Create React App:
    ```bash
    This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-```
+   
 3. **Available Scripts**
 ```bash
 In the project directory, you can run:
 ```
+
 ### `npm start`
 
 Runs the app in the development mode.\
